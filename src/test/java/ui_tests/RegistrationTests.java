@@ -28,4 +28,9 @@ public class RegistrationTests extends AppManager
         loginPage.typeLoginRegistrationForm(user);
         loginPage.clickBtnRegistration();
     }
+
+    @Test
+    public void testMethod(){
+        new HomePage(getDriver()).ajaxMethod();
+    }
 }
