@@ -7,10 +7,8 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.PageFactory;
 import org.openqa.selenium.support.pagefactory.AjaxElementLocatorFactory;
 
-public class HomePage extends BasePage
-{
-    public  HomePage(WebDriver driver)
-    {
+public class HomePage extends BasePage {
+    public HomePage(WebDriver driver) {
         setDriver(driver);
         driver.get("https://telranedu.web.app/home");
         PageFactory.initElements(new AjaxElementLocatorFactory(driver, 10), this);
@@ -21,12 +19,11 @@ public class HomePage extends BasePage
     @FindBy(xpath = "//form/input[1]")
     WebElement inputEmail;
 
-    public void clickBtnLogin()
-    {
+    public void clickBtnLogin() {
         btnLogin.click();
     }
 
-    public void method(){
+    public void method() {
         WebElement login = driver.findElement(By.xpath("//a[text()= 'LOGIN']"));
 //        login.click();
         WebElement inputEmail = driver.findElement(By
@@ -34,7 +31,7 @@ public class HomePage extends BasePage
         inputEmail.sendKeys("gtffghuh@gvhvh.ijh");
     }
 
-    public void ajaxMethod(){
+    public void ajaxMethod() {
         btnLogin.click();
         inputEmail.sendKeys("ffyfyr@cvfgt.bnm");
     }

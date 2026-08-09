@@ -9,16 +9,14 @@ import pages.LoginPage;
 
 import java.util.Random;
 
-public class RegistrationTests extends AppManager
-{
+public class RegistrationTests extends AppManager {
     @BeforeMethod
-    public void goToRegistrationPage()
-    {
+    public void goToRegistrationPage() {
         new HomePage(getDriver()).clickBtnLogin();
     }
+
     @Test
-    public void registrationPositiveTest()
-    {
+    public void registrationPositiveTest() {
         int i = new Random().nextInt(1000);
         UserLombok user = UserLombok.builder()
                 .username("ghdjd" + i + "nbd@hghg.bh")
@@ -30,7 +28,7 @@ public class RegistrationTests extends AppManager
     }
 
     @Test
-    public void testMethod(){
+    public void testMethod() {
         new HomePage(getDriver()).ajaxMethod();
     }
 }
