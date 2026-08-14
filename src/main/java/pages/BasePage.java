@@ -34,7 +34,6 @@ public abstract class BasePage {
         return text;
     }
 
-
     public void pause(int time) {
         try {
             Thread.sleep(time);
