@@ -10,7 +10,7 @@ import pages.ContactsPage;
 import pages.HomePage;
 import pages.LoginPage;
 
-import static utils.PropertiesReader.getProperty;
+import static utils.PropertiesReader.*;
 
 public class LoginTests extends AppManager {
     LoginPage loginPage;
@@ -18,7 +18,7 @@ public class LoginTests extends AppManager {
 
     @BeforeMethod
     public void goToLoginPage() {
-        new HomePage(getDriver()).clickBtnLogin();
+        new HomePage(getDriver()).clickLinkLogin();
         loginPage = new LoginPage(getDriver());
     }
 
@@ -30,8 +30,20 @@ public class LoginTests extends AppManager {
                 .build();
         loginPage.typeLoginRegistrationForm(user);
         loginPage.clickBtnLogin();
-        Assert.assertTrue(new ContactsPage(getDriver())
-                .validateTextInMessageNoContacts("No Contacts here!"));
+        ContactsPage contactsPage = new ContactsPage(getDriver());
+        softAssert.assertTrue(contactsPage.isLinkContactsDisplayed(),
+                "validate isLinkContactsDisplayed");
+        softAssert.assertTrue(contactsPage.isUrlContainsText("contacts"),"validate url");
+        softAssert.assertAll();
+    }
+
+    @Test
+    public void loginNegativeAllFieldsEmptyWOTypeFormTest(){
+        loginPage.clickBtnLogin();
+//        Assert.assertTrue(loginPage.closeAlert()
+//                .contains("Wrong email or password"));
+        Assert.assertEquals(loginPage.closeAlert(),
+                "Wrong email or password");
     }
 
     @Test
