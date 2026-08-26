@@ -16,8 +16,10 @@ import java.util.Random;
 
 public class RegistrationTests extends AppManager {
     LoginPage loginPage;
+
     @BeforeMethod
     public void goToRegistrationPage() {
+        logger.info("Start registration test");
         new HomePage(getDriver()).clickLinkLogin();
         loginPage = new LoginPage(getDriver());
     }
