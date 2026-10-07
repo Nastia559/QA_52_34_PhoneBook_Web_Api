@@ -9,6 +9,8 @@ import org.testng.annotations.Test;
 import utils.BaseApi;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.Map;
 
 import static utils.UserFactory.*;
 import static utils.PropertiesReader.*;
@@ -129,5 +131,46 @@ public class RegistrationLoginApiTests implements BaseApi {
         }
         System.out.println(response);
         Assert.assertEquals(response.code(), 401);
+    }
+
+    @Test
+    public void loginApiWrongTypeOfRequestNegativeTest(){
+        Request request = new Request.Builder()
+                .url(BASE_URL + REGISTRATION_URL)
+                .get()
+                .build();
+        Response response;
+        try {
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(response);
+        Assert.assertEquals(response.code(), 403);
+    }
+
+    @Test
+    public void loginApiWrongKeyEmailNegativeTest(){
+        UserLombok user = UserLombok.builder()
+                .username(getProperty("base.properties", "email"))
+                .password(getProperty("base.properties", "password"))
+                .build();
+        Map<String, String> invalidJSon = new HashMap<>();
+        invalidJSon.put("email", user.getUsername());
+        invalidJSon.put("password", user.getPassword());
+
+        RequestBody requestBody = RequestBody.create(GSON.toJson(user), JSON);
+        Request request = new Request.Builder()
+                .url(BASE_URL + LOGIN_URL)
+                .post(requestBody)
+                .build();
+        Response response;
+        try {
+            response = OK_HTTP_CLIENT.newCall(request).execute();
+        } catch (IOException e) {
+            throw new RuntimeException(e);
+        }
+        System.out.println(response);
+        Assert.assertEquals(response.code(), 500);
     }
 }
